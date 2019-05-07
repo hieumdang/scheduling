@@ -1,0 +1,85 @@
+ public static void RRS(int n, int aTime[], int rTime[], int priority, int timeQuantum)
+	  {
+		
+		 int[] temp = new int[n];
+		 int[] wTime = new int[n];
+		 int[] sTime = new int[n];
+		 
+		 //copy rTime to temp
+		 for (int i =1;i< n;i++)
+		    {
+		    	temp[i]= rTime[i];	
+		    }
+		 int t=0;  
+		 // Keep traversing processes in round robin manner 
+	        // until all of them are not done. 
+	        while(true) 
+	        { 
+	            boolean done = true; 
+	       
+	            // Traverse all processes one by one repeatedly 
+	            for (int i = 0 ; i < n; i++) 
+	            { 
+	                // If burst time of a process is greater than 0 
+	                // then only need to process further 
+	                if (temp[i] > 0) 
+	                { 
+	                    done = false; // There is a pending process 
+	       
+	                    if (temp[i] > timeQuantum) 
+	                    { 
+	                        // Increase the value of t i.e. shows 
+	                        // how much time a process has been processed 
+	                        t += timeQuantum; 
+	       
+	                        // Decrease the burst_time of current process 
+	                        // by quantum 
+	                        temp[i] -= timeQuantum; 
+	                    } 
+	       
+	                    // If burst time is smaller than or equal to 
+	                    // quantum. Last cycle for this process 
+	                    else
+	                    { 
+	                        // Increase the value of t i.e. shows 
+	                        // how much time a process has been processed 
+	                        t = t + temp[i]; 
+	       
+	                        // Waiting time is current time minus time 
+	                        // used by this process 
+	                        wTime[i] = t - rTime[i]; 
+	       
+	                        // As the process gets fully executed 
+	                        // make its remaining burst time = 0 
+	                        temp[i] = 0; 
+	                    } 
+	                } 
+	            } 
+	       
+	            // If all processes are done 
+	            if (done == true) 
+	              break;
+	        }
+	        // calculating service time by adding 
+	        // rTime[i] + wTime[i] 
+	        for (int i = 0; i < n ; i++) 
+	            sTime[i] = rTime[i] + wTime[i]; 
+
+	    double avgWaitTime;
+	    double sum =0.0;
+	 // Calculate total waiting time and total turn 
+        // around time 
+        for (int i=0; i<n; i++) 
+        { 
+            sum += wTime[i]; 
+        } 
+        avgWaitTime = sum/n;
+       
+	    System.out.printf("RRS Algorithm : %s", 
+               Arrays.toString(wTime));
+	    System.out.println();
+	    System.out.printf("Average Waiting Time = "+ avgWaitTime);
+	    System.out.println();
+	  }
+
+	 
