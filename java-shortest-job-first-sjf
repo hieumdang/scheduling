@@ -1,0 +1,34 @@
+ public static void SJF(int n, int aTime[], int rTime[], int priority, int timeQuantum)
+	  {
+		 
+		 //copy rTime to temp
+		 int[] temp = new int[n];
+		 for (int i =1;i< n;i++)
+		    {
+		    	temp[i]= rTime[i];	
+		    }
+		 
+		Arrays.sort(temp);
+
+		 //service time
+	    int[] sTime = new int[n];
+	    sTime[0] =0;  //assume first process going first
+	    for (int i =1;i< n;i++)
+	    {
+	    	sTime[i]= temp[i] + sTime[i-1];   	
+	    }
+	    int[] wTime = new int[n];
+	    double sum=0;
+	    for (int i =0;i< n;i++)
+	    {
+	    	wTime[i] = sTime[i]-aTime[i];
+	    	sum+=wTime[i];
+	    }
+	    double avgWaitTime;
+	    avgWaitTime = sum/n;
+	    System.out.printf("SJF Algorithm : %s", 
+                Arrays.toString(wTime));
+	    System.out.println();
+	    System.out.printf("Average Waiting Time = "+ avgWaitTime);
+	    System.out.println();
+	  }
