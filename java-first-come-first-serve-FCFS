@@ -1,0 +1,26 @@
+public static void FCFS(int n, int aTime[], int rTime[], int priority, int timeQuantum)
+	  {
+		 //service time
+	    int[] sTime = new int[n];
+	    sTime[0] =0;            //assume first process going first
+	    for (int i =1;i< n;i++)
+	    {
+	    	sTime[i]= rTime[i-1] + sTime[i-1];   	
+	    }
+	    int[] wTime = new int[n];
+	    double sum=0;
+	    for (int i =0;i< n;i++)
+	    {
+	    	wTime[i] = sTime[i]-aTime[i];         //wait time = service time - arrival time
+	    	sum+=wTime[i];
+	    }
+	    double avgWaitTime;
+	    
+	    avgWaitTime = sum/n ;
+	    System.out.printf("FCFS Algorithm : %s", 
+                Arrays.toString(wTime)); 
+	    System.out.println();
+	    System.out.printf("Average Waiting Time = "+ avgWaitTime);
+	    System.out.println();
+	  }
+	    
