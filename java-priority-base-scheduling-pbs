@@ -1,0 +1,56 @@
+ public static void PBS(int n, int aTime[], int rTime[], int priority[], int timeQuantum)
+	  {
+		 
+		 //copy priority to temp
+		 double[] temp = new double[n];
+		 for (int i =0;i< n;i++)
+		    {
+		    	temp[i]= aTime[i]*0.1+rTime[i]* 10.0;	
+		    }
+		 
+		 int[] rank = new int[n];
+		 //weighted temp array
+		 //GET RANKS
+		 for (int i =0;i< n;i++)
+		    {
+			 for(int k=0;k<n;k++)
+			 {
+				 if(temp[i] < temp[k])
+				 {
+					 rank[i]++;
+				 }
+			 }
+		    }
+			 
+		 //service time
+		    int[] sTime = new int[n];
+		    int[] wTime = new int[n];
+		    int k =0;
+		    //find the 1st process, service time =0
+		    for (int i =0;i< n;i++)
+		    { 
+			       sTime[i] = rTime[i] + wTime[i]; 
+		    }
+		    
+		    wTime[0] = 0; 
+		    // calculating waiting time 
+		    for (int  i = 1; i < n ; i++ ) 
+		    {
+		        wTime[i] =  rTime[i] + wTime[i-1] ; 
+		     } 
+		
+	
+	    int sum=0;
+	    for (int i =0;i< n;i++)
+	    {
+	    	 sum = wTime[i];
+	    	
+	    }
+	    double avgWaitTime;
+	    avgWaitTime = sum/n;
+	    System.out.printf("PBS Algorithm: %s", 
+               Arrays.toString(wTime));
+	    System.out.println();
+	    System.out.printf("Average Waiting Time = "+ avgWaitTime);
+	    System.out.println();
+	  }
